@@ -1,5 +1,5 @@
 build: 
-	docker build -t carrilloimg:lastest .
+	docker build -t carrilloimg:latest .
 
 deploy:
 	docker stack deploy --with-registry-auth -c stack.yml quinto
