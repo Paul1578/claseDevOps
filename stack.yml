@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  webcarrillo:
+    image: carrilloimg:latest
+    deploy:
+      replicas: 1
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.webcarrillo.entrypoints=http"
+        - "traefik.http.routers.webcarrillo.rule=Host(`webcarrillo.byronrm.com`)"
+        - "traefik.http.middlewares.webcarrillo-https-redirect.redirectscheme.scheme=https"
+        - "traefik.http.routers.webcarrillo.middlewares=webcarrillo-https-redirect"
+        - "traefik.http.routers.webcarrillo-secure.entrypoints=https"
+        - "traefik.http.routers.webcarrillo-secure.rule=Host(`webcarrillo.byronrm.com`)"
+        - "traefik.http.routers.webcarrillo-secure.tls=true"
+        - "traefik.http.routers.webcarrillo-secure.tls.certresolver=http"
+        - "traefik.http.routers.webcarrillo-secure.service=webcarrillo"
+        - "traefik.http.services.webcarrillo.loadbalancer.server.port=80"
+        - "traefik.docker.network=traefik-public"
+    networks:
+      - traefik-public
+
+networks:
+  traefik-public:
+    external: true
+    
