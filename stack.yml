@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   webcarrillo:
-    image: carrilloimg:latest
+    image: ghcr.io/paul1578/paul1578:1.0.0
     deploy:
       replicas: 1
       labels:
